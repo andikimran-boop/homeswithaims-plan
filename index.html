@@ -243,7 +243,7 @@ footer p+p{margin-top:6px}
       <section class="step ty" data-step="thanks" hidden>
         <p class="eyebrow">Request received</p>
         <h1 id="tyTitle">Thank you!</h1>
-        <p class="hint" style="font-size:17px">Andik or Mirta will get back to you shortly on WhatsApp to arrange a time. Can't wait? Message us directly:</p>
+        <p class="hint" style="font-size:17px" id="tyText">Andik or Mirta will get back to you shortly on WhatsApp to arrange a time. Can't wait? Message us directly:</p>
         <a class="btn wa js-wa" id="waAndik" href="https://wa.me/6587368736" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.1-.4-.2z"/></svg>Andik · 8736 8736</a>
         <a class="btn wa js-wa" id="waMirta" href="https://wa.me/6597108150" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.1-.4-.2z"/></svg>Mirta · 9710 8150</a>
         <div class="vids">
@@ -267,7 +267,7 @@ footer p+p{margin-top:6px}
 (function(){
   /* ===== Settings ===== */
   // Make.com webhook: adds the lead to Google Sheet + triggers Whatchimp WhatsApp from 85685643. Fill in once the scenario exists.
-  var LEAD_WEBHOOK = "";
+  var LEAD_WEBHOOK = "https://hook.eu1.make.com/z7bk3g96vcm4wuj84tl7wkmmd5b8tu8m";
   var SEND_TO_FORM = "AW-16974548722/nB6sCObHqKQdEPKdjJ4_";
   var SEND_TO_WHATSAPP = "AW-16974548722/P8yiCLKUgaMdEPKdjJ4_";
 
@@ -301,6 +301,31 @@ footer p+p{margin-top:6px}
     if (now && !saved) { try { localStorage.setItem("aims-plan-src", JSON.stringify({s:now,t:Date.now()})); } catch(e){} }
     return now || (saved && saved.s) || "Direct / unknown";
   })();
+
+  /* ===== How the lead landed: set utm_campaign on each ad link ===== */
+  var LANDED = (function(){
+    var q = {}; try { q = Object.fromEntries(new URLSearchParams(location.search)); } catch(e){}
+    var c = (q.utm_campaign || "").toLowerCase().replace(/[^a-z]/g, "");
+    var meta = /facebook|fb|instagram|ig|meta/i.test(q.utm_source || "") || q.fbclid;
+    var v = "";
+    if (/reel/.test(c)) v = "Meta – Reels";
+    else if (/reconnect|retarget/.test(c)) v = "Meta – Reconnecting";
+    else if (/northeast/.test(c)) v = "Google – North-East";
+    else if (/east/.test(c)) v = "Google – East";
+    else if (q.gclid || q.gbraid || q.wbraid) v = "Google – other";
+    else if (meta) v = "Meta – other";
+    else v = /Instagram|Facebook/.test(SOURCE) ? SOURCE + " (organic)" : SOURCE;
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem("aims-plan-landed") || "null"); } catch(e){}
+    if (c && !saved) { try { localStorage.setItem("aims-plan-landed", JSON.stringify({s:v,t:Date.now()})); } catch(e){} }
+    return c ? v : ((saved && Date.now() - saved.t < 30*864e5) ? saved.s : v);
+  })();
+
+  /* ===== Working hours (Singapore time): 9am to 9pm daily ===== */
+  function afterHours(){
+    var h = parseInt(new Date().toLocaleString("en-SG", {timeZone:"Asia/Singapore", hour:"2-digit", hour12:false}), 10) % 24;
+    return h < 9 || h >= 21;
+  }
 
   /* ===== Tracking ===== */
   function track(name, params){
@@ -401,6 +426,8 @@ footer p+p{margin-top:6px}
       submitted_at: stamp, name: d.name, mobile: m.slice(0,4) + " " + m.slice(4), mobile_e164: "65" + m,
       wa_link: "https://wa.me/65" + m, lead_type: d.type, considering: d.considering,
       postal_code: d.postal, address: d.address, unit_no: d.unit, flat_type: d.flatType, size: d.size, meeting: d.meeting,
+      landed_via: LANDED, after_hours: afterHours() ? "Yes" : "No",
+      reply_time: afterHours() ? "first thing tomorrow morning" : "shortly",
       source: SOURCE, page: location.href
     });
     var done = function(){ thanks(); };
@@ -415,6 +442,7 @@ footer p+p{margin-top:6px}
   function thanks(){
     var first = d.name.split(" ")[0];
     $("tyTitle").textContent = "Thank you, " + first + "!";
+    if (afterHours()) $("tyText").textContent = "Andik or Mirta will WhatsApp you first thing tomorrow morning to arrange a time. You can also leave us a message now:";
     var msg = "Hi, I'm " + d.name + ". I just requested a home planning session (" + d.type.toLowerCase() + (d.meeting ? ", " + d.meeting.toLowerCase() : "") + ").";
     $("waAndik").href = "https://wa.me/6587368736?text=" + encodeURIComponent("Hi Andik! " + msg);
     $("waMirta").href = "https://wa.me/6597108150?text=" + encodeURIComponent("Hi Mirta! " + msg);
