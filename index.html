@@ -165,16 +165,31 @@ footer p+p{margin-top:6px}
       <!-- 2c. Flat type (upgrader / rightsizer) -->
       <section class="step" data-step="flatType" hidden>
         <p class="eyebrow">Your current home</p>
-        <h1 class="q">What type of <em>home is it?</em></h1>
-        <div class="opts two">
-          <button type="button" class="opt" data-set="flatType" data-val="1-room"><span><b>1-room</b></span></button>
-          <button type="button" class="opt" data-set="flatType" data-val="2-room"><span><b>2-room</b></span></button>
-          <button type="button" class="opt" data-set="flatType" data-val="3-room"><span><b>3-room</b></span></button>
-          <button type="button" class="opt" data-set="flatType" data-val="4-room"><span><b>4-room</b></span></button>
-          <button type="button" class="opt" data-set="flatType" data-val="5-room"><span><b>5-room</b></span></button>
-          <button type="button" class="opt" data-set="flatType" data-val="Executive Apartment (EA)"><span><b>Executive Apt (EA)</b></span></button>
-          <button type="button" class="opt" data-set="flatType" data-val="Executive Maisonette (EM)"><span><b>Executive Mais. (EM)</b></span></button>
-          <button type="button" class="opt" data-set="flatType" data-val="Condo / private"><span><b>Condo / private</b></span></button>
+        <h1 class="q" id="ftQ">What type of <em>home is it?</em></h1>
+        <div class="opts" id="kindOpts" hidden>
+          <button type="button" class="opt" data-set="kind" data-val="HDB"><span class="ic">🏢</span><span><b>HDB flat</b></span></button>
+          <button type="button" class="opt" data-set="kind" data-val="Private"><span class="ic">🏙️</span><span><b>Condo / EC / apartment</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Landed"><span class="ic">🏡</span><span><b>Landed</b></span></button>
+        </div>
+        <div class="opts two" id="hdbOpts" hidden>
+          <button type="button" class="opt" data-set="flatType" data-val="HDB 1-room"><span><b>1-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="HDB 2-room"><span><b>2-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="HDB 3-room"><span><b>3-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="HDB 4-room"><span><b>4-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="HDB 5-room"><span><b>5-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="HDB Executive Apartment (EA)"><span><b>Executive Apt (EA)</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="HDB Executive Maisonette (EM)"><span><b>Executive Mais. (EM)</b></span></button>
+          <button type="button" class="opt" data-set="kind" data-val=""><span><b>Not HDB?</b></span></button>
+        </div>
+        <div class="opts two" id="privOpts" hidden>
+          <button type="button" class="opt" data-set="flatType" data-val="Condo 1-bedroom"><span><b>1-bedroom</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Condo 2-bedroom"><span><b>2-bedroom</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Condo 3-bedroom"><span><b>3-bedroom</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Condo 4-bedroom"><span><b>4-bedroom</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Condo 5-bedroom or bigger"><span><b>5-bedroom+</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Condo penthouse"><span><b>Penthouse</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Landed"><span><b>Landed</b></span></button>
+          <button type="button" class="opt" data-set="kind" data-val=""><span><b>It's HDB</b></span></button>
         </div>
         <button type="button" class="back" data-back>Back</button>
       </section>
@@ -278,7 +293,7 @@ footer p+p{margin-top:6px}
   };
 
   var $ = function(id){ return document.getElementById(id); };
-  var d = {type:"", considering:"", postal:"", address:"", unit:"", flatType:"", size:"", meeting:"", name:"", mobile:""};
+  var d = {kind:"", type:"", considering:"", postal:"", address:"", unit:"", flatType:"", size:"", meeting:"", name:"", mobile:""};
   var history = [];
 
   /* ===== Lead source (same logic as sell page, kept 30 days) ===== */
@@ -339,6 +354,7 @@ footer p+p{margin-top:6px}
   function show(step, isBack){
     var cur = document.querySelector(".step:not([hidden])");
     if (cur && !isBack) history.push(cur.getAttribute("data-step"));
+    if (step === "flatType") showKind();
     document.querySelectorAll(".step").forEach(function(s){ s.hidden = s.getAttribute("data-step") !== step; });
     var p = path(), i = p.indexOf(step);
     $("bar").style.width = (step === "thanks" ? 100 : Math.round((i + 1) / (p.length + 1) * 100)) + "%";
@@ -346,6 +362,13 @@ footer p+p{margin-top:6px}
     var inp = document.querySelector('.step[data-step="'+step+'"] input.big');
     if (inp && window.innerWidth > 700) setTimeout(function(){ inp.focus(); }, 50);
     track("PlanStep", {step: step, lead_type: d.type || ""});
+  }
+  function showKind(){
+    var k = d.kind || "";
+    $("kindOpts").hidden = !!k;
+    $("hdbOpts").hidden = k !== "HDB";
+    $("privOpts").hidden = k !== "Private";
+    $("ftQ").innerHTML = k === "HDB" ? "Which <em>flat type?</em>" : k === "Private" ? "How many <em>bedrooms?</em>" : "What type of <em>home is it?</em>";
   }
   function next(from){ var p = path(); show(p[p.indexOf(from) + 1]); }
   document.querySelectorAll("[data-back]").forEach(function(b){ b.addEventListener("click", function(){ var prev = history.pop(); if (prev) show(prev, true); }); });
@@ -355,6 +378,7 @@ footer p+p{margin-top:6px}
       var key = b.getAttribute("data-set");
       d[key] = b.getAttribute("data-val");
       document.querySelectorAll('.opt[data-set="'+key+'"]').forEach(function(o){ o.setAttribute("aria-pressed", String(o === b)); });
+      if (key === "kind") { showKind(); return; }
       if (key === "type") track("PlanSegment", {lead_type: d.type});
       setTimeout(function(){ next(key); }, 160);
     });
@@ -378,8 +402,19 @@ footer p+p{margin-top:6px}
       var name = x.BUILDING && x.BUILDING !== "NIL" ? " (" + x.BUILDING + ")" : "";
       d.address = (x.BLK_NO ? "Blk " + x.BLK_NO + " " : "") + x.ROAD_NAME + name;
       a.textContent = "📍 " + d.address.replace(/\b([A-Z])([A-Z]+)\b/g, function(m, f, r){ return f + r.toLowerCase(); });
+      d.kind = "";
+      if (!x.BLK_NO || x.BLK_NO === "NIL") { d.kind = "Private"; return; }
+      var f = encodeURIComponent(JSON.stringify({blk_no: x.BLK_NO}));
+      return Promise.race([
+        fetch("https://data.gov.sg/api/action/datastore_search?resource_id=d_17f5382f26140b1fdae0ba2ef6239d2f&filters="+f+"&limit=100").then(function(r){ return r.json(); }),
+        new Promise(function(_, rej){ setTimeout(function(){ rej(); }, 5000); })
+      ]).then(function(h){
+        var first = (x.ROAD_NAME || "").split(" ")[0];
+        var hit = ((h.result && h.result.records) || []).filter(function(r){ return r.residential === "Y" && (r.street || "").split(" ")[0] === first; })[0];
+        d.kind = hit ? "HDB" : "Private";
+      }, function(){ d.kind = ""; });
     }).catch(function(){
-      d.address = ""; a.className = "addr warn"; a.textContent = "We couldn't find that address, but that's okay. We'll confirm it with you.";
+      d.kind = ""; d.address = ""; a.className = "addr warn"; a.textContent = "We couldn't find that address, but that's okay. We'll confirm it with you.";
     }).then(function(){ $("unitWrap").hidden = false; });
   }
   $("postal").addEventListener("input", function(){ err("errAddr"); if (digits(this.value).length === 6) lookup(); });
