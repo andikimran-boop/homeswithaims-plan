@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plan your next home — Homes with AIMS (PropNex)</title>
+<meta name="description" content="First home, upgrading or rightsizing? Answer 4 quick questions and Andik or Mirta will WhatsApp you to arrange a free planning session.">
+<meta property="og:title" content="Plan your next home with Andik & Mirta — Homes with AIMS">
+<meta property="og:image" content="img/andik-mirta.png">
+
+<!-- Google tag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-96K2HYZD2X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-96K2HYZD2X');
+  gtag('config', 'AW-16974548722');
+</script>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1097171766234301');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1097171766234301&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap">
+
+<style>
+:root{
+  --forest:#15241F; --teal:#1E5A55; --terra:#C4552F; --gold:#B8893A;
+  --cream:#F3EEE4; --paper:#FBF8F2; --line:#E2DACB; --muted:#5B655F; --ink:#15241F;
+  --wa:#1F8E4F; --err:#B3261E;
+  --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans:"Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+img{max-width:100%;display:block}
+h1,h2{font-family:var(--serif);font-weight:400;line-height:1.08;margin:0;text-wrap:balance}
+p{margin:0}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{width:100%;max-width:560px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:14px}
+.logo b{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.02em}
+.logo span{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-left:6px}
+.prog{flex:1;max-width:120px;height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-left:16px}
+.prog i{display:block;height:100%;width:0;background:var(--terra);transition:width .3s ease}
+
+main{flex:1}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px;margin-block:8px 28px;box-shadow:0 1px 0 rgba(21,36,31,.04)}
+.intro{display:flex;gap:14px;align-items:center;margin-bottom:20px}
+.intro img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 20%;background:var(--teal);flex:none}
+.intro p{font-size:14.5px;color:var(--muted);line-height:1.4}
+.intro b{color:var(--ink)}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.q{font-size:clamp(30px,7.5vw,40px);margin-top:8px}
+.q em{color:var(--terra)}
+.hint{margin-top:8px;color:var(--muted);font-size:15.5px}
+
+.opts{display:grid;gap:10px;margin-top:20px}
+.opt{display:flex;align-items:center;gap:14px;text-align:left;width:100%;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px;min-height:64px;color:var(--ink);transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--teal)}
+.opt[aria-pressed="true"]{border-color:var(--teal);background:#EEF4F2}
+.opt .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--cream);display:grid;place-items:center;font-size:20px}
+.opt b{display:block;font-weight:600}
+.opt small{display:block;color:var(--muted);font-size:14px;line-height:1.35}
+
+.field{margin-top:20px}
+.big{width:100%;font:inherit;font-size:20px;padding:15px 16px;border:1.5px solid var(--line);border-radius:14px;background:#fff;color:var(--ink)}
+.big:focus{border-color:var(--teal);outline:none;box-shadow:0 0 0 3px rgba(30,90,85,.15)}
+.addr{margin-top:12px;padding:12px 14px;border-radius:12px;background:#EEF4F2;color:var(--teal);font-size:15px;font-weight:600}
+.addr.warn{background:#FBEFE9;color:var(--terra)}
+.err{margin-top:10px;color:var(--err);font-size:14.5px;font-weight:600}
+.consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:14px;color:var(--muted);line-height:1.45}
+.consent input{width:20px;height:20px;margin-top:1px;accent-color:var(--teal);flex:none}
+
+.btn{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;margin-top:20px;border:0;border-radius:14px;padding:16px;font-size:17px;font-weight:700;background:var(--forest);color:#F6F1E6;min-height:56px;text-decoration:none}
+.btn:disabled{opacity:.6;cursor:wait}
+.back{margin-top:14px;background:none;border:0;color:var(--muted);font-size:15px;padding:8px 0;text-decoration:underline;text-underline-offset:3px}
+
+/* Thank you */
+.ty h1{font-size:clamp(34px,8vw,44px);margin-top:8px}
+.wa{background:var(--wa)}
+.wa + .wa{margin-top:10px}
+.wa svg{width:22px;height:22px;flex:none}
+.small{margin-top:14px;font-size:14px;color:var(--muted);text-align:center}
+.vids{margin-top:30px}
+.vids h2{font-size:28px}
+.vgrid{display:grid;gap:14px;margin-top:14px}
+figure{margin:0}
+.vbox{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;border-radius:14px;overflow:hidden;background:var(--forest)}
+.vbox img{width:100%;height:100%;object-fit:cover;opacity:.9}
+.vbox .play{position:absolute;inset:0;display:grid;place-items:center}
+.vbox .play span{width:64px;height:64px;border-radius:50%;background:rgba(21,36,31,.78);display:grid;place-items:center}
+.vbox .play span::after{content:"";border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+.vbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+figcaption{margin-top:8px;font-size:15px;font-weight:600}
+
+footer{border-top:1px solid var(--line);padding-block:24px;font-size:12.5px;color:var(--muted)}
+footer .tl{font-family:var(--serif);font-size:20px;color:var(--teal);line-height:1.2;margin-bottom:10px}
+footer p+p{margin-top:6px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo"><b>Homes with AIMS</b><span>PropNex</span></div>
+    <div class="prog" aria-hidden="true"><i id="bar"></i></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <form class="card" id="form" novalidate>
+
+      <!-- 1. Who are you -->
+      <section class="step" data-step="type">
+        <div class="intro">
+          <img src="img/andik-mirta.png" alt="Andik and Mirta">
+          <p><b>Andik &amp; Mirta</b>, husband-and-wife PropNex agents. 100+ families helped since 2019.</p>
+        </div>
+        <p class="eyebrow">Free home planning session</p>
+        <h1 class="q">Which one <em>sounds like you?</em></h1>
+        <div class="opts">
+          <button type="button" class="opt" data-set="type" data-val="First-time buyer"><span class="ic">🔑</span><span><b>First-time buyer</b><small>Buying our first home together</small></span></button>
+          <button type="button" class="opt" data-set="type" data-val="Upgrader"><span class="ic">⬆️</span><span><b>Upgrader</b><small>Selling our flat to move to a bigger home or condo</small></span></button>
+          <button type="button" class="opt" data-set="type" data-val="Rightsizer"><span class="ic">🏡</span><span><b>Rightsizer</b><small>Kids have grown, moving to a smaller or better-fit home</small></span></button>
+        </div>
+      </section>
+
+      <!-- 2a. Address (upgrader / rightsizer) -->
+      <section class="step" data-step="address" hidden>
+        <p class="eyebrow">Your current home</p>
+        <h1 class="q">What's your <em>postal code?</em></h1>
+        <p class="hint">So we can check what flats in your block have sold for before we chat.</p>
+        <div class="field">
+          <input class="big" id="postal" inputmode="numeric" autocomplete="postal-code" maxlength="6" placeholder="e.g. 821310" aria-label="Postal code">
+          <p class="addr" id="addr" hidden></p>
+        </div>
+        <div class="field" id="unitWrap" hidden>
+          <input class="big" id="unit" autocomplete="address-line2" placeholder="Unit no. e.g. #12-345" aria-label="Unit number">
+        </div>
+        <p class="err" id="errAddr" hidden></p>
+        <button type="button" class="btn" id="addrNext">Next</button>
+        <button type="button" class="back" data-back>Back</button>
+      </section>
+
+      <!-- 2b. Considering (first-timer) -->
+      <section class="step" data-step="considering" hidden>
+        <p class="eyebrow">Your first home</p>
+        <h1 class="q">What are you <em>considering?</em></h1>
+        <div class="opts">
+          <button type="button" class="opt" data-set="considering" data-val="HDB resale"><span class="ic">🏢</span><span><b>HDB resale</b></span></button>
+          <button type="button" class="opt" data-set="considering" data-val="Executive condo (EC)"><span class="ic">🏙️</span><span><b>Executive condo (EC)</b></span></button>
+          <button type="button" class="opt" data-set="considering" data-val="Private condo"><span class="ic">🌇</span><span><b>Private condo</b></span></button>
+          <button type="button" class="opt" data-set="considering" data-val="Not sure yet"><span class="ic">🤔</span><span><b>Not sure yet</b><small>Help us figure out what we can afford</small></span></button>
+        </div>
+        <button type="button" class="back" data-back>Back</button>
+      </section>
+
+      <!-- 3. Meeting -->
+      <section class="step" data-step="meeting" hidden>
+        <p class="eyebrow">Your planning session</p>
+        <h1 class="q">How would you like <em>to meet?</em></h1>
+        <p class="hint">About 45 minutes. Free, with no obligation.</p>
+        <div class="opts">
+          <button type="button" class="opt" data-set="meeting" data-val="Face-to-face"><span class="ic">☕</span><span><b>Face-to-face</b><small>At a café near you, or at your home</small></span></button>
+          <button type="button" class="opt" data-set="meeting" data-val="Google Meet"><span class="ic">💻</span><span><b>Google Meet</b><small>Video call from home</small></span></button>
+          <button type="button" class="opt" data-set="meeting" data-val="Either"><span class="ic">👍</span><span><b>Either is fine</b></span></button>
+        </div>
+        <button type="button" class="back" data-back>Back</button>
+      </section>
+
+      <!-- 4. Name -->
+      <section class="step" data-step="name" hidden>
+        <p class="eyebrow">Almost done</p>
+        <h1 class="q">What should we <em>call you?</em></h1>
+        <div class="field"><input class="big" id="name" autocomplete="given-name" placeholder="Your name" aria-label="Your name"></div>
+        <p class="err" id="errName" hidden></p>
+        <button type="button" class="btn" id="nameNext">Next</button>
+        <button type="button" class="back" data-back>Back</button>
+      </section>
+
+      <!-- 5. WhatsApp -->
+      <section class="step" data-step="mobile" hidden>
+        <p class="eyebrow">Last step</p>
+        <h1 class="q">Your <em>WhatsApp</em> number?</h1>
+        <p class="hint">Andik or Mirta will WhatsApp you to arrange a time. No spam, no calls out of the blue.</p>
+        <div class="field"><input class="big" id="mobile" type="tel" inputmode="tel" autocomplete="tel-national" maxlength="12" placeholder="e.g. 9123 4567" aria-label="WhatsApp number"></div>
+        <label class="consent"><input type="checkbox" id="consent"> <span>I agree to Homes with AIMS (PropNex) contacting me on WhatsApp about this request, in line with the PDPA.</span></label>
+        <p class="err" id="errMobile" hidden></p>
+        <button type="submit" class="btn" id="submit">Request my planning session</button>
+        <button type="button" class="back" data-back>Back</button>
+      </section>
+
+      <!-- Thank you -->
+      <section class="step ty" data-step="thanks" hidden>
+        <p class="eyebrow">Request received</p>
+        <h1 id="tyTitle">Thank you!</h1>
+        <p class="hint" style="font-size:17px">Andik or Mirta will get back to you shortly on WhatsApp to arrange a time. Can't wait? Message us directly:</p>
+        <a class="btn wa js-wa" id="waAndik" href="https://wa.me/6587368736" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.1-.4-.2z"/></svg>Andik · 8736 8736</a>
+        <a class="btn wa js-wa" id="waMirta" href="https://wa.me/6597108150" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2-.2-.1-.4-.2z"/></svg>Mirta · 9710 8150</a>
+        <div class="vids">
+          <h2>Families like yours</h2>
+          <div class="vgrid" id="vgrid"></div>
+        </div>
+      </section>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="tl">Your home, in the right hands.<br>Aimed at what's best for your family.</p>
+    <p>Andik Imran (CEA R061801F) · Mirta Syazanna (CEA R070524E) · PropNex Realty Pte Ltd (CEA Licence L3008022J)</p>
+    <p>We only use your details to reply to your request, in line with the PDPA.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ===== Settings ===== */
+  // Make.com webhook: adds the lead to Google Sheet + triggers Whatchimp WhatsApp from 85685643. Fill in once the scenario exists.
+  var LEAD_WEBHOOK = "";
+  var SEND_TO_FORM = "AW-16974548722/nB6sCObHqKQdEPKdjJ4_";
+  var SEND_TO_WHATSAPP = "AW-16974548722/P8yiCLKUgaMdEPKdjJ4_";
+
+  var VIDEOS = {
+    "First-time buyer": [["B9qhPIzvHSk","First-time buyers' story"],["N0Gbht4hh9E","First-time HDB buyer Fikry's testimonial"]],
+    "Upgrader": [["eGR3yy6DjXQ","An upgrader family's story"],["avTZy2KYlcc","How to plan for a comfortable life for your family"]],
+    "Rightsizer": [["py-YhrtGXfk","A rightsizer's story"]]
+  };
+
+  var $ = function(id){ return document.getElementById(id); };
+  var d = {type:"", considering:"", postal:"", address:"", unit:"", meeting:"", name:"", mobile:""};
+  var history = [];
+
+  /* ===== Lead source (same logic as sell page, kept 30 days) ===== */
+  var SOURCE = (function(){
+    var q = {}; try { q = Object.fromEntries(new URLSearchParams(location.search)); } catch(e){}
+    var ref = document.referrer || "", ua = navigator.userAgent || "", now = "";
+    var paid = /paid|cpc|cpm|ppc|^ads?$/i.test(q.utm_medium || "");
+    if (q.gclid || q.gbraid || q.wbraid) now = "Google Ads";
+    else if (q.utm_source) {
+      var base = {facebook:"Facebook",fb:"Facebook",instagram:"Instagram",ig:"Instagram",google:"Google",tiktok:"TikTok",whatsapp:"WhatsApp"}[q.utm_source.toLowerCase()] || q.utm_source;
+      if (paid) base += " Ads";
+      now = base + (q.utm_campaign ? " (" + q.utm_campaign + ")" : "") + (q.utm_content ? " · " + q.utm_content : "");
+    }
+    else if (/Instagram/i.test(ua) || /instagram\./i.test(ref)) now = "Instagram";
+    else if (/FBAN|FBAV|FB_IAB/i.test(ua) || /facebook\./i.test(ref) || q.fbclid) now = "Facebook";
+    else if (ref && ref.indexOf(location.hostname) < 0) now = "Other: " + ref.replace(/^https?:\/\//,"").split("/")[0];
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem("aims-plan-src") || "null"); } catch(e){}
+    if (saved && Date.now() - saved.t > 30*864e5) saved = null;
+    if (now && !saved) { try { localStorage.setItem("aims-plan-src", JSON.stringify({s:now,t:Date.now()})); } catch(e){} }
+    return now || (saved && saved.s) || "Direct / unknown";
+  })();
+
+  /* ===== Tracking ===== */
+  function track(name, params){
+    try { if (window.fbq) fbq("trackCustom", name, params || {}); } catch(e){}
+    try { if (window.gtag) gtag("event", name, params || {}); } catch(e){}
+  }
+
+  /* ===== Steps ===== */
+  var ORDER = { "First-time buyer":["type","considering","meeting","name","mobile"], other:["type","address","meeting","name","mobile"] };
+  function path(){ return ORDER[d.type === "First-time buyer" ? "First-time buyer" : "other"]; }
+  function show(step, isBack){
+    var cur = document.querySelector(".step:not([hidden])");
+    if (cur && !isBack) history.push(cur.getAttribute("data-step"));
+    document.querySelectorAll(".step").forEach(function(s){ s.hidden = s.getAttribute("data-step") !== step; });
+    var p = path(), i = p.indexOf(step);
+    $("bar").style.width = (step === "thanks" ? 100 : Math.round((i + 1) / (p.length + 1) * 100)) + "%";
+    window.scrollTo(0, 0);
+    var inp = document.querySelector('.step[data-step="'+step+'"] input.big');
+    if (inp && window.innerWidth > 700) setTimeout(function(){ inp.focus(); }, 50);
+    track("PlanStep", {step: step, lead_type: d.type || ""});
+  }
+  function next(from){ var p = path(); show(p[p.indexOf(from) + 1]); }
+  document.querySelectorAll("[data-back]").forEach(function(b){ b.addEventListener("click", function(){ var prev = history.pop(); if (prev) show(prev, true); }); });
+
+  document.querySelectorAll(".opt").forEach(function(b){
+    b.addEventListener("click", function(){
+      var key = b.getAttribute("data-set");
+      d[key] = b.getAttribute("data-val");
+      document.querySelectorAll('.opt[data-set="'+key+'"]').forEach(function(o){ o.setAttribute("aria-pressed", String(o === b)); });
+      if (key === "type") track("PlanSegment", {lead_type: d.type});
+      setTimeout(function(){ next(key); }, 160);
+    });
+  });
+
+  function err(id, msg){ var e = $(id); e.textContent = msg || ""; e.hidden = !msg; }
+  var digits = function(s){ return (s || "").replace(/\D/g, ""); };
+
+  /* ===== Address via OneMap ===== */
+  function lookup(){
+    var pc = digits($("postal").value);
+    if (pc.length !== 6 || pc === d.postal) return;
+    d.postal = pc; d.address = "";
+    var a = $("addr"); a.hidden = false; a.className = "addr"; a.textContent = "Checking your address…";
+    Promise.race([
+      fetch("https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+pc+"&returnGeom=N&getAddrDetails=Y&pageNum=1").then(function(r){ return r.json(); }),
+      new Promise(function(_, rej){ setTimeout(function(){ rej(); }, 5000); })
+    ]).then(function(j){
+      var x = (j.results || []).filter(function(r){ return r.POSTAL === pc; })[0];
+      if (!x) throw 0;
+      var name = x.BUILDING && x.BUILDING !== "NIL" ? " (" + x.BUILDING + ")" : "";
+      d.address = (x.BLK_NO ? "Blk " + x.BLK_NO + " " : "") + x.ROAD_NAME + name;
+      a.textContent = "📍 " + d.address.replace(/\b([A-Z])([A-Z]+)\b/g, function(m, f, r){ return f + r.toLowerCase(); });
+    }).catch(function(){
+      d.address = ""; a.className = "addr warn"; a.textContent = "We couldn't find that address, but that's okay. We'll confirm it with you.";
+    }).then(function(){ $("unitWrap").hidden = false; });
+  }
+  $("postal").addEventListener("input", function(){ err("errAddr"); if (digits(this.value).length === 6) lookup(); });
+  $("addrNext").addEventListener("click", function(){
+    if (digits($("postal").value).length !== 6) { err("errAddr", "Please enter your 6-digit postal code."); return; }
+    lookup();
+    d.unit = $("unit").value.trim();
+    err("errAddr"); next("address");
+  });
+  $("unit").addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); $("addrNext").click(); } });
+  $("postal").addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); $("addrNext").click(); } });
+
+  /* ===== Name ===== */
+  $("nameNext").addEventListener("click", function(){
+    var n = $("name").value.trim();
+    if (n.length < 2) { err("errName", "Please enter your name."); return; }
+    d.name = n; err("errName"); next("name");
+  });
+  $("name").addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); $("nameNext").click(); } });
+
+  /* ===== Submit ===== */
+  $("form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var m = digits($("mobile").value).replace(/^65(?=\d{8}$)/, "");
+    if (!/^[89]\d{7}$/.test(m)) { err("errMobile", "Please enter an 8-digit Singapore mobile number starting with 8 or 9."); return; }
+    if (!$("consent").checked) { err("errMobile", "Please tick the box so we can WhatsApp you."); return; }
+    err("errMobile"); d.mobile = m;
+    $("submit").disabled = true; $("submit").textContent = "Sending…";
+
+    try { if (window.fbq) fbq("track", "Lead", {content_name: d.type}); } catch(x){}
+    try { if (window.gtag) { gtag("event", "conversion", {send_to: SEND_TO_FORM}); gtag("event", "generate_lead", {lead_type: d.type}); } } catch(x){}
+
+    var stamp = new Date().toLocaleString("en-SG", {timeZone:"Asia/Singapore", day:"2-digit", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit"});
+    var body = new URLSearchParams({
+      submitted_at: stamp, name: d.name, mobile: m.slice(0,4) + " " + m.slice(4), mobile_e164: "65" + m,
+      wa_link: "https://wa.me/65" + m, lead_type: d.type, considering: d.considering,
+      postal_code: d.postal, address: d.address, unit_no: d.unit, meeting: d.meeting,
+      source: SOURCE, page: location.href
+    });
+    var done = function(){ thanks(); };
+    if (LEAD_WEBHOOK) {
+      Promise.race([
+        fetch(LEAD_WEBHOOK, {method:"POST", body: body, mode:"no-cors", keepalive:true}),
+        new Promise(function(r){ setTimeout(r, 4000); })
+      ]).then(done, done);
+    } else done();
+  });
+
+  function thanks(){
+    var first = d.name.split(" ")[0];
+    $("tyTitle").textContent = "Thank you, " + first + "!";
+    var msg = "Hi, I'm " + d.name + ". I just requested a home planning session (" + d.type.toLowerCase() + (d.meeting ? ", " + d.meeting.toLowerCase() : "") + ").";
+    $("waAndik").href = "https://wa.me/6587368736?text=" + encodeURIComponent("Hi Andik! " + msg);
+    $("waMirta").href = "https://wa.me/6597108150?text=" + encodeURIComponent("Hi Mirta! " + msg);
+    var g = $("vgrid"); g.innerHTML = "";
+    (VIDEOS[d.type] || []).forEach(function(v){
+      var f = document.createElement("figure");
+      f.innerHTML = '<button class="vbox" type="button" data-yt="'+v[0]+'" aria-label="Play: '+v[1]+'"><img src="https://i.ytimg.com/vi/'+v[0]+'/hqdefault.jpg" alt="" loading="lazy"><span class="play"><span></span></span></button><figcaption>'+v[1]+'</figcaption>';
+      g.appendChild(f);
+    });
+    g.querySelectorAll("[data-yt]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var id = b.getAttribute("data-yt"), fr = document.createElement("iframe");
+        fr.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
+        fr.allow = "autoplay; encrypted-media; picture-in-picture"; fr.allowFullscreen = true; fr.title = b.getAttribute("aria-label");
+        b.replaceWith(fr); track("video_play", {video_id: id, lead_type: d.type});
+      }, {once:true});
+    });
+    history = [];
+    show("thanks");
+  }
+
+  document.querySelectorAll(".js-wa").forEach(function(a){
+    a.addEventListener("click", function(){
+      try { if (window.fbq) fbq("track", "Contact", {content_name: a.id}); } catch(x){}
+      try { if (window.gtag) { gtag("event", "conversion", {send_to: SEND_TO_WHATSAPP}); gtag("event", "whatsapp_click", {who: a.id}); } } catch(x){}
+    });
+  });
+
+  show("type");
+  history = [];
+})();
+</script>
+</body>
+</html>
