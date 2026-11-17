@@ -77,6 +77,8 @@ main{flex:1}
 .opt[aria-pressed="true"]{border-color:var(--teal);background:#EEF4F2}
 .opt .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--cream);display:grid;place-items:center;font-size:20px}
 .opt b{display:block;font-weight:600}
+.opts.two{grid-template-columns:1fr 1fr}
+.opts.two .opt{min-height:56px;padding:12px 14px;justify-content:center;text-align:center}
 .opt small{display:block;color:var(--muted);font-size:14px;line-height:1.35}
 
 .field{margin-top:20px}
@@ -157,6 +159,35 @@ footer p+p{margin-top:6px}
         </div>
         <p class="err" id="errAddr" hidden></p>
         <button type="button" class="btn" id="addrNext">Next</button>
+        <button type="button" class="back" data-back>Back</button>
+      </section>
+
+      <!-- 2c. Flat type (upgrader / rightsizer) -->
+      <section class="step" data-step="flatType" hidden>
+        <p class="eyebrow">Your current home</p>
+        <h1 class="q">What type of <em>home is it?</em></h1>
+        <div class="opts two">
+          <button type="button" class="opt" data-set="flatType" data-val="1-room"><span><b>1-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="2-room"><span><b>2-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="3-room"><span><b>3-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="4-room"><span><b>4-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="5-room"><span><b>5-room</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Executive Apartment (EA)"><span><b>Executive Apt (EA)</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Executive Maisonette (EM)"><span><b>Executive Mais. (EM)</b></span></button>
+          <button type="button" class="opt" data-set="flatType" data-val="Condo / private"><span><b>Condo / private</b></span></button>
+        </div>
+        <button type="button" class="back" data-back>Back</button>
+      </section>
+
+      <!-- 2d. Size -->
+      <section class="step" data-step="size" hidden>
+        <p class="eyebrow">Your current home</p>
+        <h1 class="q">How big is <em>your home?</em></h1>
+        <p class="hint">In sqm or sqft, either is fine. It's on your HDB or property documents.</p>
+        <div class="field"><input class="big" id="size" inputmode="decimal" maxlength="6" placeholder="e.g. 92 sqm or 990 sqft" aria-label="Home size"></div>
+        <p class="err" id="errSize" hidden></p>
+        <button type="button" class="btn" id="sizeNext">Next</button>
+        <button type="button" class="back" id="sizeSkip" style="display:block">I'm not sure, skip</button>
         <button type="button" class="back" data-back>Back</button>
       </section>
 
@@ -241,13 +272,13 @@ footer p+p{margin-top:6px}
   var SEND_TO_WHATSAPP = "AW-16974548722/P8yiCLKUgaMdEPKdjJ4_";
 
   var VIDEOS = {
-    "First-time buyer": [["B9qhPIzvHSk","First-time buyers' story"],["N0Gbht4hh9E","First-time HDB buyer Fikry's testimonial"]],
-    "Upgrader": [["eGR3yy6DjXQ","An upgrader family's story"],["avTZy2KYlcc","How to plan for a comfortable life for your family"]],
-    "Rightsizer": [["py-YhrtGXfk","A rightsizer's story"]]
+    "First-time buyer": [["B9qhPIzvHSk","Habib & Nabilah · First-time buyers"],["N0Gbht4hh9E","Fikri · First-time buyer"]],
+    "Upgrader": [["eGR3yy6DjXQ","Azhar & Hafizah · Upgraders"],["avTZy2KYlcc","Faiz & Mizah · Upgraders"]],
+    "Rightsizer": [["py-YhrtGXfk","Cik Hafiz & Cik Mira · Rightsizers"]]
   };
 
   var $ = function(id){ return document.getElementById(id); };
-  var d = {type:"", considering:"", postal:"", address:"", unit:"", meeting:"", name:"", mobile:""};
+  var d = {type:"", considering:"", postal:"", address:"", unit:"", flatType:"", size:"", meeting:"", name:"", mobile:""};
   var history = [];
 
   /* ===== Lead source (same logic as sell page, kept 30 days) ===== */
@@ -278,7 +309,7 @@ footer p+p{margin-top:6px}
   }
 
   /* ===== Steps ===== */
-  var ORDER = { "First-time buyer":["type","considering","meeting","name","mobile"], other:["type","address","meeting","name","mobile"] };
+  var ORDER = { "First-time buyer":["type","considering","meeting","name","mobile"], other:["type","address","flatType","size","meeting","name","mobile"] };
   function path(){ return ORDER[d.type === "First-time buyer" ? "First-time buyer" : "other"]; }
   function show(step, isBack){
     var cur = document.querySelector(".step:not([hidden])");
@@ -336,6 +367,15 @@ footer p+p{margin-top:6px}
   $("unit").addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); $("addrNext").click(); } });
   $("postal").addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); $("addrNext").click(); } });
 
+  /* ===== Size ===== */
+  $("sizeNext").addEventListener("click", function(){
+    var v = parseFloat(($("size").value || "").replace(/[^\d.]/g, ""));
+    if (!(v >= 25 && v <= 10000)) { err("errSize", "Please enter the size, e.g. 92 sqm. Not sure? Tap skip."); return; }
+    d.size = v > 320 ? v + " sqft (~" + Math.round(v / 10.764) + " sqm)" : v + " sqm"; err("errSize"); next("size");
+  });
+  $("sizeSkip").addEventListener("click", function(){ d.size = "Not sure"; err("errSize"); next("size"); });
+  $("size").addEventListener("keydown", function(e){ if (e.key === "Enter") { e.preventDefault(); $("sizeNext").click(); } });
+
   /* ===== Name ===== */
   $("nameNext").addEventListener("click", function(){
     var n = $("name").value.trim();
@@ -360,7 +400,7 @@ footer p+p{margin-top:6px}
     var body = new URLSearchParams({
       submitted_at: stamp, name: d.name, mobile: m.slice(0,4) + " " + m.slice(4), mobile_e164: "65" + m,
       wa_link: "https://wa.me/65" + m, lead_type: d.type, considering: d.considering,
-      postal_code: d.postal, address: d.address, unit_no: d.unit, meeting: d.meeting,
+      postal_code: d.postal, address: d.address, unit_no: d.unit, flat_type: d.flatType, size: d.size, meeting: d.meeting,
       source: SOURCE, page: location.href
     });
     var done = function(){ thanks(); };
